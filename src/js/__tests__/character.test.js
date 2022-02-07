@@ -1,4 +1,5 @@
 import Character from '../character';
+import Bowman from '../bowman';
 
 describe('this class creates a new character', () => {
   test('create a new character with a name that is not a string', () => {
@@ -58,5 +59,38 @@ describe('this class creates a new character', () => {
       level: 1,
     };
     expect(character).toMatchObject(result);
+  });
+
+  test('levelUp an alive character', () => {
+    const bowman = new Bowman('Test', 'Bowman');
+    bowman.levelUp();
+    expect([
+      bowman.attack,
+      bowman.defence,
+      bowman.health,
+      bowman.level,
+    ]).toEqual([30, 30, 100, 2]);
+  });
+
+  test('levelUp a dead character', () => {
+    const bowman = new Bowman('Test', 'Bowman');
+    bowman.health = 0;
+    expect(() => bowman
+      .levelUp()
+      .toThrowError(new Error('you cannot level up a dad character')));
+  });
+
+  test('levelUp a dead character', () => {
+    const bowman = new Bowman('Test', 'Bowman');
+    bowman.health = -10;
+    expect(() => bowman
+      .levelUp()
+      .toThrowError(new Error('you cannot level up a dad character')));
+  });
+
+  test('damage(points)', () => {
+    const bowman = new Bowman('Test', 'Bowman');
+    bowman.damage(100);
+    expect([bowman.defence, bowman.health]).toEqual([25, 25]);
   });
 });
