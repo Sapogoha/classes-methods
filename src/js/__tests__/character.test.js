@@ -77,7 +77,7 @@ describe('this class creates a new character', () => {
     bowman.health = 0;
     expect(() => bowman
       .levelUp()
-      .toThrowError(new Error('you cannot level up a dad character')));
+      .toThrowError(new Error('you cannot level up a dead character')));
   });
 
   test('levelUp a dead character', () => {
@@ -85,7 +85,15 @@ describe('this class creates a new character', () => {
     bowman.health = -10;
     expect(() => bowman
       .levelUp()
-      .toThrowError(new Error('you cannot level up a dad character')));
+      .toThrowError(new Error('you cannot level up a dead character')));
+  });
+
+  test('levelUp a character that was killed xperiencing too high damage', () => {
+    const bowman = new Bowman('Test', 'Bowman');
+    bowman.health = -10;
+    expect(() => bowman
+      .damage(1000)
+      .toThrowError(new Error('you cannot level up a dead character')));
   });
 
   test('damage(points)', () => {

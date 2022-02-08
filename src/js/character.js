@@ -41,7 +41,7 @@ export default class Character {
       this.defence *= 1.2;
       this.health = 100;
     } else {
-      throw new Error('you cannot level up a dad character');
+      throw new Error('you cannot level up a dead character');
     }
   }
 
